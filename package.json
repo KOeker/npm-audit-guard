@@ -31,12 +31,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/npm-audit-guard.git"
+    "url": "https://github.com/KOeker/npm-audit-guard.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/npm-audit-guard/issues"
+    "url": "https://github.com/KOeker/npm-audit-guard/issues"
   },
-  "homepage": "https://github.com/yourusername/npm-audit-guard#readme",
+  "homepage": "https://github.com/KOeker/npm-audit-guard#readme",
   "engines": {
     "node": ">=16.0.0"
   },
