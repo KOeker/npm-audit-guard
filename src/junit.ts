@@ -19,7 +19,7 @@ export class JUnitReporter {
   }
 
   private generateJUnitXML(results: FormattedResults): string {
-    const totalTests = results.totalCount + results.ignored.length + results.blacklistWarnings.length;
+    const totalTests = Math.max(1, results.totalCount + results.ignored.length + results.blacklistWarnings.length);
     const failures = results.totalCount + results.blacklistWarnings.length;
     const timestamp = new Date().toISOString();
 
@@ -62,6 +62,11 @@ export class JUnitReporter {
       xml += `      </failure>\n`;
       xml += `    </testcase>\n`;
     });
+
+    if (results.totalCount === 0 && results.ignored.length === 0 && results.blacklistWarnings.length === 0) {
+      xml += `    <testcase name="No vulnerabilities found" classname="security.clean" time="0">\n`;
+      xml += `    </testcase>\n`;
+    }
 
     xml += '  </testsuite>\n';
     xml += '</testsuites>\n';

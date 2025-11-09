@@ -1,1 +1,1 @@
-{"version":3,"file":"junit.d.ts","sourceRoot":"","sources":["../src/junit.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,gBAAgB,EAAE,MAAM,SAAS,CAAC;AAE3C,qBAAa,aAAa;IACxB,UAAU,CAAC,OAAO,EAAE,gBAAgB,EAAE,UAAU,CAAC,EAAE,MAAM,GAAG,MAAM;IAelE,OAAO,CAAC,gBAAgB;IAmDxB,OAAO,CAAC,SAAS;CAQlB"}
+{"version":3,"file":"junit.d.ts","sourceRoot":"","sources":["../src/junit.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,gBAAgB,EAAE,MAAM,SAAS,CAAC;AAE3C,qBAAa,aAAa;IACxB,UAAU,CAAC,OAAO,EAAE,gBAAgB,EAAE,UAAU,CAAC,EAAE,MAAM,GAAG,MAAM;IAelE,OAAO,CAAC,gBAAgB;IAwDxB,OAAO,CAAC,SAAS;CAQlB"}
