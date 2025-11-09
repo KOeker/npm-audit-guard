@@ -1,0 +1,7 @@
+{
+  "blacklist": [
+    "example-package",
+    "old-dependency"
+  ],
+  "includeDev": false
+}
