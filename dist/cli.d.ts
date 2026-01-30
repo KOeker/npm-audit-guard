@@ -6,8 +6,10 @@ export declare class AuditGuardCLI {
     private configLoader;
     private junitReporter;
     constructor();
+    private getVersion;
     setupCommands(): void;
     run(options: CliOptions): Promise<void>;
     parse(argv: string[]): void;
+    initConfig(): void;
 }
 //# sourceMappingURL=cli.d.ts.map

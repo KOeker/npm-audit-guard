@@ -7,6 +7,8 @@ exports.AuditGuardCLI = void 0;
 const commander_1 = require("commander");
 const chalk_1 = __importDefault(require("chalk"));
 const cli_progress_1 = __importDefault(require("cli-progress"));
+const fs_1 = require("fs");
+const path_1 = require("path");
 const audit_1 = require("./audit");
 const formatter_1 = require("./formatter");
 const config_1 = require("./config");
@@ -19,17 +21,34 @@ class AuditGuardCLI {
         this.configLoader = new config_1.ConfigLoader();
         this.junitReporter = new junit_1.JUnitReporter();
     }
+    getVersion() {
+        try {
+            const packageJsonPath = (0, path_1.join)(__dirname, '..', 'package.json');
+            const packageJson = JSON.parse((0, fs_1.readFileSync)(packageJsonPath, 'utf-8'));
+            return packageJson.version;
+        }
+        catch (error) {
+            return 'unknown';
+        }
+    }
     setupCommands() {
         this.program
             .name('audit-guard')
             .description('CLI tool for npm security audit with blacklist functionality')
-            .version('1.0.0')
+            .version(this.getVersion());
+        this.program
             .option('--dev', 'Include dev dependencies in scan')
             .option('--blacklist <packages>', 'Comma-separated list of packages to ignore')
             .option('--junit', 'Generate JUnit XML report for CI/CD integration')
             .option('--output <path>', 'Path for JUnit XML output (default: ./audit-results.xml)')
             .action(async (options) => {
             await this.run(options);
+        });
+        this.program
+            .command('init')
+            .description('Create a .auditguardrc.json config file in the current directory')
+            .action(() => {
+            this.initConfig();
         });
     }
     async run(options) {
@@ -79,6 +98,32 @@ class AuditGuardCLI {
     }
     parse(argv) {
         this.program.parse(argv);
+    }
+    initConfig() {
+        const fs = require('fs');
+        const path = require('path');
+        const configPath = path.join(process.cwd(), '.auditguardrc.json');
+        if (fs.existsSync(configPath)) {
+            console.log(chalk_1.default.yellow('  .auditguardrc.json already exists in this directory'));
+            console.log(chalk_1.default.gray(`   Location: ${configPath}`));
+            process.exit(0);
+        }
+        const defaultConfig = {
+            blacklist: [],
+            includeDev: false
+        };
+        try {
+            fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2), 'utf-8');
+            console.log(chalk_1.default.green('✓ Created .auditguardrc.json'));
+            console.log(chalk_1.default.gray(`  Location: ${configPath}`));
+            console.log(chalk_1.default.cyan('\n  Edit this file to configure your audit settings:'));
+            console.log(chalk_1.default.cyan('   - Add packages to the blacklist array'));
+            console.log(chalk_1.default.cyan('   - Set includeDev to true to scan dev dependencies'));
+        }
+        catch (error) {
+            console.error(chalk_1.default.red(`Error creating config file: ${error.message}`));
+            process.exit(2);
+        }
     }
 }
 exports.AuditGuardCLI = AuditGuardCLI;

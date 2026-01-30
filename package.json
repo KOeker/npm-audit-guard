@@ -1,6 +1,6 @@
 {
   "name": "npm-audit-guard",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "CLI tool for npm security audit with blacklist functionality and progress bar",
   "main": "dist/index.js",
   "bin": {
@@ -54,6 +54,7 @@
     "dist",
     "bin",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    ".auditguardrc.example.json"
   ]
 }

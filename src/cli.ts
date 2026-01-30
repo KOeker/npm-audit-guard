@@ -1,6 +1,8 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import cliProgress from 'cli-progress';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { AuditExecutor } from './audit';
 import { ResultFormatter } from './formatter';
 import { ConfigLoader } from './config';
@@ -22,11 +24,23 @@ export class AuditGuardCLI {
     this.junitReporter = new JUnitReporter();
   }
 
+  private getVersion(): string {
+    try {
+      const packageJsonPath = join(__dirname, '..', 'package.json');
+      const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
+      return packageJson.version;
+    } catch (error) {
+      return 'unknown';
+    }
+  }
+
   setupCommands(): void {
     this.program
       .name('audit-guard')
       .description('CLI tool for npm security audit with blacklist functionality')
-      .version('1.0.0')
+      .version(this.getVersion());
+
+    this.program
       .option('--dev', 'Include dev dependencies in scan')
       .option(
         '--blacklist <packages>',
@@ -42,6 +56,13 @@ export class AuditGuardCLI {
       )
       .action(async (options: CliOptions) => {
         await this.run(options);
+      });
+
+    this.program
+      .command('init')
+      .description('Create a .auditguardrc.json config file in the current directory')
+      .action(() => {
+        this.initConfig();
       });
   }
 
@@ -112,5 +133,35 @@ export class AuditGuardCLI {
 
   parse(argv: string[]): void {
     this.program.parse(argv);
+  }
+
+  initConfig(): void {
+    const fs = require('fs');
+    const path = require('path');
+    const configPath = path.join(process.cwd(), '.auditguardrc.json');
+
+    if (fs.existsSync(configPath)) {
+      console.log(chalk.yellow('  .auditguardrc.json already exists in this directory'));
+      console.log(chalk.gray(`   Location: ${configPath}`));
+      process.exit(0);
+    }
+
+    const defaultConfig = {
+      blacklist: [
+      ],
+      includeDev: false
+    };
+
+    try {
+      fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2), 'utf-8');
+      console.log(chalk.green('✓ Created .auditguardrc.json'));
+      console.log(chalk.gray(`  Location: ${configPath}`));
+      console.log(chalk.cyan('\n  Edit this file to configure your audit settings:'));
+      console.log(chalk.cyan('   - Add packages to the blacklist array'));
+      console.log(chalk.cyan('   - Set includeDev to true to scan dev dependencies'));
+    } catch (error: any) {
+      console.error(chalk.red(`Error creating config file: ${error.message}`));
+      process.exit(2);
+    }
   }
 }

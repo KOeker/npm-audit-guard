@@ -33,6 +33,16 @@ npm install --save-dev npm-audit-guard
 
 ## 🚀 Usage
 
+### Initialize Config File
+
+Create a `.auditguardrc.json` config file in your project:
+
+```bash
+audit-guard init
+```
+
+This creates a default config file that you can customize with your blacklist and settings.
+
 ### Basic Scan
 
 Standard scan without dev dependencies:
@@ -54,6 +64,19 @@ audit-guard --dev
 ```
 
 ### With Blacklist
+
+**Option 1: Using config file (recommended for multiple packages)**
+
+```bash
+# Create config file once
+audit-guard init
+
+# Edit .auditguardrc.json and add your packages to the blacklist array
+# Then just run:
+audit-guard
+```
+
+**Option 2: Command line (quick one-time use)**
 
 ```bash
 audit-guard --blacklist="axios,lodash,moment"
@@ -112,6 +135,18 @@ Total vulnerabilities found: 4 (excluding ignored)
 
 ### Config File (.auditguardrc.json)
 
+You can create a config file to persist your audit settings. **The file is automatically loaded** if it exists in your project directory.
+
+**Option 1: Using the init command (recommended)**
+
+```bash
+audit-guard init
+```
+
+This creates a `.auditguardrc.json` file with default settings that you can customize.
+
+**Option 2: Manual creation**
+
 Create a `.auditguardrc.json` file in your project root:
 
 ```json
@@ -125,9 +160,21 @@ Create a `.auditguardrc.json` file in your project root:
 }
 ```
 
-**Note:** CLI parameters override config file settings.
+**How it works:**
+- ✅ The config file is **automatically detected and loaded** - no extra command needed
+- ✅ Run `audit-guard` and it will use your blacklist from the config file
+- ⚠️ **CLI parameters override config file settings** (e.g., `--blacklist` on command line takes priority)
 
-### CLI Options
+### CLI Commands & Options
+
+**Commands:**
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `audit-guard` | Run security audit (default) | `audit-guard --dev` |
+| `audit-guard init` | Create .auditguardrc.json config file | `audit-guard init` |
+
+**Options:**
 
 | Option | Description | Example |
 |--------|-------------|---------|
