@@ -1,9 +1,10 @@
 # npm-audit-guard
 
-[![npm version](https://img.shields.io/npm/v/npm-audit-guard.svg)](https://www.npmjs.com/package/npm-audit-guard)
-[![npm downloads](https://img.shields.io/npm/dm/npm-audit-guard.svg)](https://www.npmjs.com/package/npm-audit-guard)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/KOeker/npm-audit-guard.svg)](https://github.com/KOeker/npm-audit-guard/stargazers)
+![npm version](https://img.shields.io/npm/v/npm-audit-guard.svg)
+![npm downloads](https://img.shields.io/npm/d18m/npm-audit-guard)
+![node current](https://img.shields.io/node/v/npm-audit-guard)
+![node support](https://img.shields.io/badge/node-up_to_v22-brightgreen)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 A powerful CLI tool for npm security audits with blacklist functionality, progress bar, and JUnit XML reports for CI/CD integration.
 
