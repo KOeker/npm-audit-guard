@@ -123,7 +123,7 @@ export class ResultFormatter {
   private printSeverityGroup(
     severityLabel: string,
     vulnerabilities: Array<{ name: string; range: string }>,
-    colorFn: chalk.Chalk
+    colorFn: typeof chalk
   ): void {
     if (vulnerabilities.length > 0) {
       console.log(colorFn.bold(`\n${severityLabel}:`));

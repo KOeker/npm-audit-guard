@@ -1,6 +1,6 @@
 {
   "name": "npm-audit-guard",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "CLI tool for npm security audit with blacklist functionality and progress bar",
   "main": "dist/index.js",
   "bin": {
@@ -41,13 +41,13 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
-    "cli-progress": "^3.12.0",
-    "commander": "^11.1.0"
+    "chalk": "^5.6",
+    "cli-progress": "^3.12",
+    "commander": "^14.0"
   },
   "devDependencies": {
     "@types/cli-progress": "^3.11.5",
-    "@types/node": "^20.10.5",
+    "@types/node": "^25.1",
     "typescript": "^5.3.3"
   },
   "files": [
